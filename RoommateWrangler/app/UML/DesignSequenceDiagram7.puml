@@ -1,0 +1,76 @@
+@startuml
+title mark bill paid
+[-> MainMenuFragment: onBillManagerSelected()
+activate MainMenuFragment
+MainMenuFragment -> BillManagerFragment : onCreate()
+deactivate MainMenuFragment
+activate BillManagerFragment
+[-> BillManagerFragment : onManagePaymentSelected()
+BillManagerFragment -> BillPaymentFragment : onCreate()
+deactivate BillManagerFragment
+activate BillPaymentFragment
+BillPaymentFragment -> BillManager : create(Context)
+BillPaymentFragment -> BillManager : getUnpaidBills()
+activate BillManager
+BillManager -> DatabaseHelper : create(Context)
+activate DatabaseHelper
+BillManager -> DatabaseHelper : getBillList()
+BillManager <-- DatabaseHelper : billList
+deactivate DatabaseHelper
+BillManager -> ArrayList : create()
+activate ArrayList
+loop for all bills b in billList
+opt if b.getPaid() == 0
+BillManager -> ArrayList : add(b)
+deactivate ArrayList
+end
+end
+BillPaymentFragment <-- BillManager : unpaidBillList
+deactivate BillManager
+BillPaymentFragment -> RoommateManger : create(Context)
+activate RoommateManger
+BillPaymentFragment -> StringArray : create()
+activate StringArray
+loop for Bill b
+BillPaymentFragment -> Bill : getRoommateNumber()
+activate Bill
+BillPaymentFragment <-- Bill : roommateNumber
+BillPaymentFragment -> RoommateManger : getRoommateNameFromId(roommateNumber)
+BillPaymentFragment <-- RoommateManger : roommateName
+BillPaymentFragment -> StringArray : add(roommateName, b.getBillType, b.getAmount)
+deactivate Bill
+end
+deactivate RoommateManger
+BillPaymentFragment -> BillPaymentFragment : resetAdaptor(StringArray)
+[-> BillPaymentFragment : onListItemClick()
+BillPaymentFragment -> BillPaymentFragment : inflate(confirm_paid_view)
+[-> BillPaymentFragment : onPositiveButtonSelected()
+BillPaymentFragment -> BillManager : create(Context)
+BillPaymentFragment -> BillManager : getBills()
+activate BillManager
+BillManager -> DatabaseHelper : create(Context)
+activate DatabaseHelper
+BillManager -> DatabaseHelper : getBillList()
+BillManager <-- DatabaseHelper : billList
+deactivate DatabaseHelper
+BillPaymentFragment <-- BillManager : billList
+BillPaymentFragment -> Adaptor : getPosition()
+BillPaymentFragment <-- Adaptor : position
+BillPaymentFragment -> Bill : billList.get(position)
+activate Bill
+BillPaymentFragment -> Bill : markBillPaid()
+BillPaymentFragment -> BillManager : updateBill(Bill, Context)
+BillManager -> DatabaseHelper : create(Context)
+activate DatabaseHelper
+BillManager -> DatabaseHelper : updateBill(Bill)
+deactivate DatabaseHelper
+deactivate Bill
+deactivate BillManager
+BillPaymentFragment -> BillPaymentFragment : resetAdaptor(StringArray)
+deactivate StringArray
+BillPaymentFragment -> Toast : create()
+activate Toast
+BillPaymentFragment -> Toast : setText("bill marked as paid")
+deactivate Toast
+deactivate BillPaymentFragment
+@enduml

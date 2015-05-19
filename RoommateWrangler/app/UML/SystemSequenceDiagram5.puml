@@ -1,0 +1,10 @@
+@startuml
+title view grocery history
+Actor Wrangler
+
+opt if groceries have been added to the database
+Wrangler <-- RoommateWrangler: how many times each roommate has purchased each item
+end
+
+
+@enduml

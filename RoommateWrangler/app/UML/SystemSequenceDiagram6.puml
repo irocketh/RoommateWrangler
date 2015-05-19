@@ -1,0 +1,22 @@
+@startuml
+title bill payment
+       Actor Wrangler
+
+       opt if unpaid bills have been added to the database
+       loop for all unpaid bills
+       Wrangler <-- RoommateWrangler: bill amount
+       Wrangler <-- RoommateWrangler: bill type
+       Wrangler <-- RoommateWrangler: corresponding responsible roommate
+       end
+       opt
+       Wrangler -> RoommateWrangler: select bills to mark as paid
+       Wrangler <-- RoommateWrangler: request to confirm mark bill as paid
+       Wrangler -> RoommateWrangler: confirm to mark bill as paid
+       RoommateWrangler -> RoommateWrangler: mark selected bill as paid
+       RoommateWrangler -> RoommateWrangler: update the database
+       Wrangler <-- RoommateWrangler: inform successful change
+       end
+       end
+
+
+       @enduml

@@ -1,0 +1,36 @@
+@startuml
+title  Add Grocery Purchase
+[-> MainActivity : onGroceryManagerSelected()
+activate MainActivity
+MainActivity -> GroceryManagerFragment : onCreate()
+deactivate MainActivity
+activate GroceryManagerFragment
+[-> GroceryManagerFragment : onAddGrocerySelected()
+GroceryManagerFragment -> GroceryManagerFragment : inflate(add_grocery_view)
+GroceryManagerFragment ->RoommateManger : create()
+activate RoommateManger
+GroceryManagerFragment ->RoommateManger : getRoommates()
+RoommateManger -> DatabaseHelper : create()
+activate DatabaseHelper
+RoommateManger -> DatabaseHelper : getRoommates()
+RoommateManger <-- DatabaseHelper : roommates
+deactivate DatabaseHelper
+GroceryManagerFragment <-- RoommateManger: roommates
+deactivate RoommateManger
+GroceryManagerFragment -> GroceryManagerFragment : display(roommates)
+[--> GroceryManagerFragment : roommate
+[--> GroceryManagerFragment : groceryType
+[-> GroceryManagerFragment : onPositiveButtonSelected()
+GroceryManagerFragment -> Grocery : create(roommate, groceryType)
+activate Grocery
+GroceryManagerFragment -> DatabaseHelper : create(Context)
+activate DatabaseHelper
+GroceryManagerFragment -> DatabaseHelper : createGrocery(grocery)
+deactivate Grocery
+deactivate DatabaseHelper
+GroceryManagerFragment -> Toast: create()
+activate Toast
+GroceryManagerFragment -> Toast: setText("add successful")
+deactivate Toast
+deactivate GroceryManagerFragment
+@enduml

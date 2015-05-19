@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:text="@string/add_bill_text"
+        android:id="@+id/add_bill_button"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:text="@string/manage_bill_payment_text"
+        android:id="@+id/manage_bill_payment_button"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:text="@string/view_history_text"
+        android:id="@+id/view_history_button"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:text="@string/bill_reminder_text"
+        android:id="@+id/send_bill_reminder_button"/>
+
+</LinearLayout>

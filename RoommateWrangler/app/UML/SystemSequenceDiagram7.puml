@@ -1,0 +1,18 @@
+@startuml
+title send bill reminders
+       Actor Wrangler
+
+       Wrangler <-- RoommateWrangler: bill totals
+       Wrangler <-- RoommateWrangler: corresponding responsible roommates
+       Wrangler -> RoommateWrangler: select send reminders
+       Wrangler <-- RoommateWrangler: request to confirm to send reminders
+       Wrangler -> RoommateWrangler: confirm to send reminders
+       loop for all roommates
+       opt if roommate total != 0
+       RoommateWrangler -> RoommateWrangler: generate SMS message with total
+       RoommateWrangler -> RoommateWrangler: send SMS message to roommate
+       end
+       Wrangler <-- RoommateWrangler: inform messages sent
+       end
+
+       @enduml

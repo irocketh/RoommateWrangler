@@ -1,0 +1,241 @@
+@startuml
+
+class Activity
+class BillManager
+class Bill
+class BillHistoryFragment
+class BillManagerFragment
+class BillPaymentFragment
+class BillReminderFragment
+enum BillType
+class DatabaseHelper
+class Fragment
+class Grocery
+class GroceryManager
+class GroceryManagerFragment
+class GroceryHistoryFragment
+enum GroceryType
+class MainActivity
+class MainMenuFragment
+class Roommate
+class RoommateManager
+class SplashScreen
+
+class Bill {
+double amount
+int roommateNumber
+int paid
+int id
+getAmount()
+getRoommateNumber()
+getPaid()
+getId()
+setAmount(amountIn)
+setRoommateNumber(roommateNumberIn)
+setPaid(paidIn)
+setId(idIn)
+}
+
+class BillManager {
+ArrayList<Bill> bills
+BillManger BillManger(Context c)
+double divideBill(double totalAmount, int numRoommates)
+ArrayList<Bill> getBills()
+ArrayList<Bill> getUnpaidBills()
+void updateBill(Bill b)
+void markBillPaid(Bill b)
+}
+
+class BillHistoryFragment {
+View onCreateView()
+void onCreate()
+void onResume()
+void onSaveInstanceState()
+void onPause()
+}
+
+class BillManagerFragment {
+void addBill()
+View onCreateView()
+void onCreate()
+void onResume()
+void onSaveInstanceState()
+void onPause()
+void onAttach()
+}
+
+class BillPaymentFragment {
+void onListItemClick
+View onCreateView()
+void onCreate()
+void onResume()
+void onSaveInstanceState()
+void onPause()
+void onAttach()
+}
+
+class BillReminderFragment {
+View onCreateView()
+void onCreate()
+void onResume()
+void onSaveInstanceState()
+void onPause()
+void onAttach()
+}
+
+enum BillType{
+WATER,
+POWER,
+INTERNET_CABLE,
+TRASH,
+LANDSCAPING
+}
+
+class DatabaseHelper {
+create()
+read()
+update()
+delete()
+}
+
+class Grocery {
+int roommate
+int id
+getRoommate()
+getId()
+setRoommate(int)
+setId(int)
+}
+
+class GroceryHistoryFragment {
+View onCreateView()
+void onCreate()
+void onResume()
+void onSaveInstanceState()
+void onPause()
+void onAttach()
+}
+
+class GroceryManager {
+ArrayList<Grocery> groceryList
+ArrayList<Grocery> getGroceryList()
+void loadGroceries(Context)
+GroceryManager(Context)
+}
+
+class GroceryManagerFragment {
+void addGrocery()
+View onCreateView()
+void onCreate()
+void onResume()
+void onSaveInstanceState()
+void onPause()
+void onAttach()
+}
+
+enum GroceryType{
+BREAD,
+EGGS,
+MILK,
+FF_PIZZA
+}
+
+class MainActivity {
+void onCreate()
+void onResume()
+void onSaveInstanceState()
+void onPause()
+}
+
+class MainMenuFragment {
+void addRoommate()
+View onCreateView()
+void onCreate()
+void onResume()
+void onSaveInstanceState()
+void onPause()
+void onAttach()
+}
+
+class Roommate{
+id
+String name
+int phoneNumber
+getId()
+getName()
+getPhoneNumber()
+setId(int)
+setName(String)
+setPhoneNumber(int)
+Roommate Roommate(int, String, int)
+}
+
+class RoommateManager {
+ArrayList<Roommate> roommateList
+RoommateManager RoommateManger(Context)
+void loadRoommates(Context)
+ArrayList<Roommate> getRoommates()
+String getNameFromId(int)
+}
+
+class SplashScreen {
+void onCreate()
+void onResume()
+void onSaveInstanceState()
+void onPause()
+}
+
+
+abstract class SQLLiteOpenHelper
+
+Fragment <|- BillManagerFragment
+Fragment <|- GroceryManagerFragment
+Fragment <|- MainMenuFragment
+Fragment <|- BillHistoryFragment
+ListFragment <|- BillPaymentFragment
+Fragment <|- GroceryHistoryFragment
+Fragment <|- BillReminderFragment
+
+Activity <|- MainActivity
+Activity <|- SplashScreen
+
+SQLLiteOpenHelper <|- DatabaseHelper
+
+BillManager --> BillType
+BillManager *-- Bill
+Bill *-- BillType
+Bill *-- Roommate
+
+Grocery *-- Roommate
+Grocery *-- GroceryType
+GroceryManager *-- Grocery
+GroceryManager --> GroceryType
+
+RoommateManager *-- Roommate
+RoommateManager --> DatabaseHelper : cruds
+GroceryManager --> DatabaseHelper : cruds
+BillManager --> DatabaseHelper : cruds
+
+MainActivity *-- BillManagerFragment
+MainActivity *-- GroceryManagerFragment
+MainActivity *-- MainMenuFragment
+MainActivity *-- BillHistoryFragment
+MainActivity *-- BillPaymentFragment
+MainActivity *-- GroceryHistoryFragment
+MainActivity *-- BillReminderFragment
+
+BillManagerFragment *-- BillManager
+GroceryManagerFragment *-- GroceryManager
+BillHistoryFragment *-- BillManager
+BillPaymentFragment *-- BillManager
+GroceryHistoryFragment *-- GroceryManager
+BillReminderFragment *-- BillManager
+
+BillManagerFragment *-- RoommateManager
+GroceryManagerFragment *-- RoommateManager
+BillHistoryFragment *-- RoommateManager
+BillPaymentFragment *-- RoommateManager
+GroceryHistoryFragment *-- RoommateManager
+BillReminderFragment *-- RoommateManager
+
+@enduml

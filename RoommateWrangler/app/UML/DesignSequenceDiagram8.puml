@@ -1,0 +1,66 @@
+@startuml
+title send bill reminder
+[-> MainMenuFragment: onBillManagerSelected()
+activate MainMenuFragment
+MainMenuFragment -> BillManagerFragment : onCreate()
+deactivate MainMenuFragment
+activate BillManagerFragment
+[-> BillManagerFragment : onBillReminderSelected()
+BillManagerFragment -> BillReminderFragment : create()
+BillReminderFragment -> BillManager : create(Context)
+BillReminderFragment -> BillManager : getUnpaidBills()
+activate BillManager
+BillManager -> DatabaseHelper : create(Context)
+activate DatabaseHelper
+BillManager -> DatabaseHelper : getBillList()
+BillManager <-- DatabaseHelper : billList
+deactivate DatabaseHelper
+BillManager -> ArrayList : create()
+activate ArrayList
+loop for all bills b in billList
+opt if b.getPaid() == 0
+BillManager -> ArrayList : add(b)
+deactivate ArrayList
+end
+end
+BillReminderFragment <-- BillManager : unpaidBillList
+deactivate BillManager
+BillReminderFragment -> RoommateManger : create(Context)
+activate RoommateManger
+BillReminderFragment -> RoommateManger : getRoommates()
+RoommateManger -> DatabaseHelper : create()
+activate DatabaseHelper
+RoommateManger -> DatabaseHelper : getRoommates()
+RoommateManger <-- DatabaseHelper : roommates
+deactivate DatabaseHelper
+BillReminderFragment <-- RoommateManger: roommateList
+deactivate RoommateManger
+BillReminderFragment -> StringBuilder : create()
+activate StringBuilder
+loop for Roommate rm in roommateList
+BillReminderFragment -> StringBuilder : append(rm.getName())
+loop for Bill b in unpaidBillList
+opt if b.getRoommateNumber() == rm.getId()
+BillReminderFragment -> BillReminderFragment : total += b.getAmount()
+end
+end
+BillReminderFragment -> StringBuilder : append(total)
+end
+BillReminderFragment -> TextView : create()
+activate TextView
+BillReminderFragment -> TextView : setText(StringBuilder.toString())
+deactivate TextView
+deactivate StringBuilder
+[-> BillReminderFragment : sendRemindersSelected()
+BillReminderFragment -> SmsManager : create()
+activate SmsManager
+loop for each Roommate roommate
+BillReminderFragment -> SmsManager : sendTextMessage(roommate.getNumber(), null, total, null, null)
+end
+deactivate SmsManager
+BillReminderFragment -> Toast : create()
+activate Toast
+BillReminderFragment -> Toast : setText("Reminders sent")
+deactivate Toast
+deactivate BillManagerFragment
+@enduml

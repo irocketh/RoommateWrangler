@@ -1,0 +1,188 @@
+@startuml
+@startsalt
+{
+{T
++ View Splash Page
+++  Goal
++++ To view the opening page of the app
+++ Entry conditions
++++ The Wrangler has opened the app.
+++ Scenario
++++ The system displays the splash page
+++ Exceptions
++++ None
+++ Exit conditions
++++ Successful Exit Conditions
+++++ The Wrangler is viewing the main menu.
++++ Failure Exit Conditions
+++++ None
+}
+{T
++ Add Roommate
+++  Goal
++++ To add a new roommate
+++ Entry conditions
++++ The Wrangler has opened the application and viewed the splash screen.
+++ Scenario
++++ The Wrangler selects the "add roommate" button.
++++ The system displays a request for a name and phone number.
++++ The Wrangler enters a name and phone number.
++++ The Wrangler selects the "confirm add" button.
++++ The system adds the roommate to the Roommate database.
++++ The system notifies the Wrangler that the add was successful.
+++ Exceptions
++++ The Wrangler attempts to input text that is detected as database injection and is told to enter valid information.
+++ Exit conditions
++++ Successful Exit Conditions
+++++ The new roommate appears in all situations where roommates can be selected and the Wrangler is informed of the addition.
++++ Failure Exit Conditions
+++++ The Wrangler is informed to enter new valid input.
+}
+{T
++ Add Bill
+++  Goal
++++ To add a bill to the history of bills
+++ Entry conditions
++++ The Wrangler has started the app and viewed the splash screen.
+++ Scenario
++++ The Wrangler selects the "manage bills" button
++++ The Wrangler selects the "add bill" button
++++ The system displays different types of bills and an enter amount box.
++++ The Wrangler enters the bill type and bill amount
++++ The Wrangler selects the "confirm add" button
++++ The system evenly divides the bill and assigns each part to a roommate
++++ The system adds the bill to the Bills database
++++ The system notifies the Wrangler that the add was successful.
+++ Exceptions
++++ The Wrangler does not enter a valid bill amount and is prompted to reenter amount.
+++ Exit conditions
++++ Successful Exit Conditions
+++++ The new bill has been added to the Bills database and the Wrangler is informed of the success.
++++ Failure Exit Conditions
+++++ The Wrangler is prompted to enter a valid amount.
+}
+{T
++ Add Grocery Purchase
+++  Goal
++++ To add purchased item and associate it with a roommate.
+++ Entry conditions
++++ The application has been launched and the splash screen has been displayed.
+++
++++ The Wrangler selects the "manage grocery" option
++++ The Wrangler selects the "add grocery" option
++++ The system displays a selection for different types of groceries and a way to select a roommate
++++ The Wrangler enters the grocery type and selects a roommate.
++++ The Wrangler selects the "confirm add" button
++++ The system adds the grocery item to the Groceries database.
++++ The system notifies the Wrangler that the add was successful.
+++ Exceptions
++++ None
+++ Exit conditions
++++ Successful Exit Conditions
+++++ The grocery item is added to the groceries database and the Wrangler is notified of the success.
++++ Failure Exit Conditions
+++++ None
+}
+{T
++ View Bill History
+++  Goal
++++ To show all the bills and the roommates associated with each one
+++ Entry conditions
++++ The application has been launched and the splash page displayed
+++ Scenario
++++ The Wrangler selects the "manage bills" button
++++ The Wrangler selects the "view bill history" button
++++ The system displays all bills in the database with the associated roommate, pay status, and type
+++ Exceptions
++++ No bills have been added and nothing is displayed
+++ Exit conditions
++++ Successful Exit Conditions
+++++ The bills are all displayed on the screen as described above.
++++ Failure Exit Conditions
+++++ No bills are displayed.
+}
+{T
++ Mark Bill Paid
+++  Goal
++++ To mark bills paid for various roommates
+++ Entry conditions
++++ The application has been launched and the splash page displayed
+++ Scenario
++++ The Wrangler selects the "manage bills" button
++++ The Wrangler selects the "manage bill payment" button
++++ The system displays all unpaid bills
++++ The Wrangler selects the bill he/she wished to mark as paid
++++ The system asks for confirmation to mark the bill as paid
++++ The Wrangler sends confirmation
++++ The system updates the bill as paid in the database
++++ The system informs the Wrangler that the add was successful.
+++ Exceptions
++++ There are no unpaid bills. Nothing is displayed
+++ Exit conditions
++++ Successful Exit Conditions
+++++ The bills selected are updated as paid in the Bills database and the Wrangler is informed.
++++ Failure Exit Conditions
+++++ Nothing is displayed.
+}
+{T
++ Send Bill Reminder
+++  Goal
++++ To send SMS reminders of how much a roommate owes to the other roommates.
+++ Entry conditions
++++ The application has been launched and the splash page displayed
+++ Scenario
++++ The Wrangler selects the "manage bills" button
++++ The Wrangler selects the "send bill reminder" button
++++ The system displays total unpaid bills for each roommate.
++++ The Wrangler selects the "send reminders" button
++++ The system asks for confirmation to send reminders
++++ The Wrangler sends confirmation
++++ The system generates SMS messages including the bill total for each roommate whose total is not 0..
++++ The system sends the message to each roommate whose total is not 0.
++++ The system informs the Wrangler that the messages were sent.
+++ Exceptions
++++ There are no unpaid bills. 0 is the total for all roommates.
+++ Exit conditions
++++ Successful Exit Conditions
+++++ The messages have been successfully sent and the Wrangler is informed.
++++ Failure Exit Conditions
+++++ All roommate totals are 0. No messages sent.
+}
+{T
++ View Grocery History
+++  Goal
++++ To view the previously purchased groceries items
+++ Entry conditions
++++ The application has been launched and the splash page displayed
+++ Scenario
++++ The Wrangler selects the "manage groceries" button
++++ The Wrangler selects the "view grocery history" button
++++ The system displays how many times each roommate has purchased each item
+++ Exceptions
++++ No groceries have been added and nothing is displayed.
+++ Exit conditions
++++ Successful Exit Conditions
+++++ The amount of times each roommate has purchased each item is displayed.
++++ Failure Exit Conditions
+++++ Nothing is displayed
+}
+{T
++ Reset
+++  Goal
++++ To delete all bills, groceries, and roommate information.
+++ Entry conditions
++++ The application has been launched and the splash page displayed
+++ Scenario
++++ The Wrangler selects the "reset" button
++++ The system deletes all bill, groceries, and roommate information.
+++ Exceptions
++++ None
+++ Exit conditions
++++ Successful Exit Conditions
+++++ All databases are dropped and no bill, grocery, or roommate information is left.
++++ Failure Exit Conditions
+++++ None
+}
+}
+@enduml
+@endsalt

@@ -1,0 +1,46 @@
+@startuml
+title : add Bill
+[-> MainMenuFragment: onBillManagerSelected()
+activate MainMenuFragment
+MainMenuFragment -> BillManagerFragment : onCreate()
+deactivate MainMenuFragment
+activate BillManagerFragment
+[-> BillManagerFragment : onAddBillSelected()
+BillManagerFragment -> BillManagerFragment : inflate(add_bill_view)
+[--> BillManagerFragment : billType
+[--> BillManagerFragment : billAmount
+[-> BillManagerFragment : onConfirmAdd()
+BillManagerFragment -> RoommateManger : create(Context)
+activate RoommateManger
+BillManagerFragment -> RoommateManger : getRoommates()
+RoommateManger -> DatabaseHelper : create()
+activate DatabaseHelper
+RoommateManger -> DatabaseHelper : getRoommates()
+RoommateManger <-- DatabaseHelper : roommates
+deactivate DatabaseHelper
+BillManagerFragment <-- RoommateManger: roommateList
+deactivate RoommateManger
+BillManagerFragment -> BillManager : create(Context)
+activate BillManager
+BillManagerFragment -> BillManager : divideBill(billAmount)
+BillManagerFragment <-- BillManager : dividedBill
+deactivate BillManager
+loop for all roommates rm
+BillManagerFragment -> Roommate : getId()
+activate Roommate
+BillManagerFragment <-- Roommate : id
+deactivate Roommate
+BillManagerFragment -> Bill : create(billType, dividedBill, id)
+activate Bill
+BillManagerFragment -> DatabaseHelper : create()
+activate DatabaseHelper
+BillManagerFragment -> DatabaseHelper : createBill(Bill)
+deactivate Bill
+deactivate DatabaseHelper
+end
+BillManagerFragment -> Toast : create()
+activate Toast
+BillManagerFragment -> Toast : setText (successful add)
+deactivate Toast
+deactivate BillManagerFragment
+@enduml

@@ -1,0 +1,25 @@
+@startuml
+title start app
+Actor Wrangler
+Wrangler -> RoommateWrangler: lauch app
+Note Right : UC: view splash screen
+Wrangler <-- RoommateWrangler: splash screen
+Wrangler -> RoommateWrangler: feature selection
+loop while feature selection is not 'quit'
+alt if selection is add roommate
+group ref SD: add roommate
+end
+else if selection is manage bills
+group ref SD: manage bills
+end
+else if selection is manage groceries
+group ref SD: manage groceries
+end
+else if selection is reset
+group ref SD: reset
+end
+end
+Wrangler -> RoommateWrangler: feature selection
+end
+
+@enduml

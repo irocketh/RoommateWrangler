@@ -1,0 +1,13 @@
+@startuml
+title : Reset
+[-> MainMenuFragment: onResetSelected()
+activate MainMenuFragment
+ MainMenuFragment -> MainActivity: deleteDatebase()
+ activate MainActivity
+ deactivate MainActivity
+MainMenuFragment -> Toast: create()
+activate Toast
+MainMenuFragment -> Toast: setText("Data reset")
+deactivate Toast
+deactivate MainMenuFragment
+@enduml

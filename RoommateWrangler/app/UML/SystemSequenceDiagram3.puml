@@ -1,0 +1,18 @@
+@startuml
+title add grocery purchase
+Actor Wrangler
+
+loop until valid input
+Wrangler <-- RoommateWrangler: roommate request
+Wrangler <-- RoommateWrangler: grocery type request
+Wrangler -> RoommateWrangler: roommate
+Wrangler -> RoommateWrangler: grocery type
+Wrangler -> RoommateWrangler: confirm
+opt if invalid input
+Wrangler <-- RoommateWrangler: valid input request
+end
+end
+RoommateWrangler -> RoommateWrangler: add grocery to database
+Wrangler <-- RoommateWrangler: inform successful add
+
+@enduml

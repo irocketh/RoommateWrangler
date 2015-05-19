@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/starting_instructions"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:text="@string/add_roommate_text"
+        android:id="@+id/add_roommate_button"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:text="@string/manage_bills_text"
+        android:id="@+id/manage_bills_button"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:text="@string/manage_groceries_text"
+        android:id="@+id/manage_groceries_button"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/warning"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:text="Reset"
+            android:id="@+id/reset_button"/>
+</LinearLayout>

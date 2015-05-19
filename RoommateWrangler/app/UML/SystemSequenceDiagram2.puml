@@ -1,0 +1,19 @@
+@startuml
+title add bill
+Actor Wrangler
+
+loop until valid input
+Wrangler <-- RoommateWrangler: bill type request
+Wrangler <-- RoommateWrangler: bill amount request
+Wrangler -> RoommateWrangler: bill type
+Wrangler -> RoommateWrangler: bill amount
+Wrangler -> RoommateWrangler: confirm
+opt if invalid input
+Wrangler <-- RoommateWrangler: valid input request
+end
+end
+RoommateWrangler -> RoommateWrangler: divide bill evenly and assign to roommates
+RoommateWrangler -> RoommateWrangler: add bills to database
+Wrangler <-- RoommateWrangler: inform successful add
+
+@enduml

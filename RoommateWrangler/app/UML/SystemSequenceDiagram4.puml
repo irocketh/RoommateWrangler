@@ -1,0 +1,13 @@
+@startuml
+title view bill history
+Actor Wrangler
+
+opt if bills have been added to the database
+loop for all bills in database
+Wrangler <-- RoommateWrangler: bill amount
+Wrangler <-- RoommateWrangler: bill type
+Wrangler <-- RoommateWrangler: corresponding responsible roommate
+end
+end
+
+@enduml

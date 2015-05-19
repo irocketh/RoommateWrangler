@@ -1,0 +1,26 @@
+@startuml
+title:   view splash screen and start main activity
+[-> SplashScreen: onCreate()
+activate SplashScreen
+SplashScreen -> SplashScreen :setContextView(SplashScreen)
+loop for 3 seconds
+SplashScreen -> SplashScreen : wait()
+end
+
+SplashScreen -> Intent : create(MainActivity)
+activate Intent
+SplashScreen -> Intent : launchActivity()
+[-> MainActivity : create()
+deactivate Intent
+activate MainActivity
+deactivate SplashScreen
+destroy SplashScreen
+MainActivity -> SupportFragmentManager: replace(thisView, MainMenuFragmentView)
+activate SupportFragmentManager
+MainActivity -> SupportFragmentManager: commit()
+SupportFragmentManager -> MainMenuFragment: onCreate()
+activate MainMenuFragment
+deactivate SupportFragmentManager
+deactivate MainActivity
+deactivate MainMenuFragment
+@enduml

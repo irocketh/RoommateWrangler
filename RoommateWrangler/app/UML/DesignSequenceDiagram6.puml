@@ -1,0 +1,58 @@
+@startuml
+title view grocery history
+[-> MainActivity : onGroceryManagerSelected()
+activate MainActivity
+MainActivity -> GroceryManagerFragment : onCreate()
+deactivate MainActivity
+activate GroceryManagerFragment
+[-> GroceryManagerFragment : onViewGroceryHistorySelected()
+GroceryManagerFragment -> GroceryHistoryFragment : onCreate()
+deactivate GroceryManagerFragment
+activate GroceryHistoryFragment
+GroceryHistoryFragment -> RoommateManger : create(Context)
+activate RoommateManger
+GroceryHistoryFragment -> RoommateManger : getRoommates()
+RoommateManger -> DatabaseHelper : create()
+activate DatabaseHelper
+RoommateManger -> DatabaseHelper : getRoommates()
+RoommateManger <-- DatabaseHelper : roommates
+deactivate DatabaseHelper
+GroceryHistoryFragment <-- RoommateManger: roommateList
+deactivate RoommateManger
+GroceryHistoryFragment -> GroceryManger : create(Context)
+activate GroceryManger
+GroceryHistoryFragment -> GroceryManger : getGroceries()
+RoommateManger -> DatabaseHelper : create()
+activate DatabaseHelper
+GroceryManger -> DatabaseHelper : getGroceries()
+GroceryManger <-- DatabaseHelper : groceryList
+deactivate DatabaseHelper
+GroceryHistoryFragment <-- GroceryManger: groceryList
+deactivate GroceryManger
+GroceryHistoryFragment -> StringBuilder: create()
+activate StringBuilder
+loop for Roommate rm in roommateList
+GroceryHistoryFragment -> Roommate : getName()
+activate Roommate
+GroceryHistoryFragment <-- Roommate : name
+GroceryHistoryFragment -> StringBuilder: append(name)
+GroceryHistoryFragment -> StringBuilder: append("Eggs\nBread\nMilk\nFast Food/Pizza\n")
+loop for Grocery g in groceryList
+opt if g.getRoommateId() == rm.getId()
+GroceryHistoryFragment -> Grocery : getType()
+GroceryHistoryFragment <-- Grocery : type
+GroceryHistoryFragment --> GroceryHistoryFragment : typeCount++
+end
+GroceryHistoryFragment -> StringBuilder: append(eggCount, breadCount, milkCount, foodCount)
+end
+deactivate Roommate
+end
+GroceryHistoryFragment -> TextView: create()
+activate TextView
+GroceryHistoryFragment -> StringBuilder: toString()
+GroceryHistoryFragment <-- StringBuilder: string
+deactivate StringBuilder
+GroceryHistoryFragment -> TextView: setText(string)
+deactivate TextView
+deactivate GroceryHistoryFragment
+@enduml

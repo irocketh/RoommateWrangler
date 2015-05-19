@@ -1,0 +1,34 @@
+@startuml
+
+enum BillType{
+WATER,
+POWER,
+INTERNET_CABLE,
+TRASH,
+LANDSCAPING
+}
+enum GroceryType{
+BREAD,
+EGGS,
+MILK,
+FF_PIZZA
+}
+class Grocery {
+}
+class Bill {
+int amount
+boolean paid
+}
+class Roommate{
+String name
+int phoneNumber
+}
+
+Bill *-- BillType
+Bill *-- Roommate
+Grocery *-- Roommate
+Grocery *-- GroceryType
+
+
+hide methods
+@enduml

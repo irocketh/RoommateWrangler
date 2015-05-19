@@ -1,0 +1,20 @@
+@startuml
+left to right direction
+skinparam packageStyle rect
+actor wrangler
+actor roommate
+
+rectangle RoommateWrangler {
+wrangler -- (manage bills)
+wrangler -- (manage groceries)
+wrangler -- (add roommate)
+wrangler -- (reset)
+roommate -- (send bill reminder)
+(manage bills) .> (add bill): <<includes>>
+(manage bills) .> (mark bill paid): <<includes>>
+(manage bills) .> (view bill history): <<includes>>
+(manage bills) .> (send bill reminder): <<includes>>
+(manage groceries) .> (add grocery purchase): <<includes>>
+(manage groceries) .> (view grocery history): <<includes>>
+}
+@enduml

@@ -1,0 +1,17 @@
+@startuml
+title add roommate
+Actor Wrangler
+loop until valid input
+Wrangler <-- RoommateWrangler: name request
+Wrangler <-- RoommateWrangler: number request
+Wrangler -> RoommateWrangler: name
+Wrangler -> RoommateWrangler: number
+Wrangler -> RoommateWrangler: select confirm
+opt if invalid input
+Wrangler <-- RoommateWrangler: valid input request
+end
+end
+RoommateWrangler -> RoommateWrangler: add roommate to database
+Wrangler <-- RoommateWrangler: inform successful add
+
+@enduml

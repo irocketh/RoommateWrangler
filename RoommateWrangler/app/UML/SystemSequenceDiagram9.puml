@@ -1,0 +1,23 @@
+@startuml
+title manage bills
+Actor Wrangler
+
+Wrangler -> RoommateWrangler: feature selection
+loop while feature selection is not 'back to main menu' or 'quit'
+alt if selection is add bill
+group ref SD: add bill
+end
+else if selection is view bill history
+group ref SD: view bill history
+end
+else if selection is send bill reminders
+group ref SD: send reminders
+end
+else if selection is bill payment
+group ref SD: bill payment
+end
+end
+Wrangler -> RoommateWrangler: feature selection
+end
+
+@enduml

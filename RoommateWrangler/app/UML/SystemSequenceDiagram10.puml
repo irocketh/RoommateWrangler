@@ -1,0 +1,17 @@
+@startuml
+title manage groceries
+Actor Wrangler
+
+Wrangler -> RoommateWrangler: feature selection
+loop while feature selection is not 'back to main menu' or 'quit'
+alt if selection is add grocery
+group ref SD: add grocery
+end
+else if selection is view grocery history
+group ref SD: grocery history
+end
+end
+Wrangler -> RoommateWrangler: feature selection
+end
+
+@enduml

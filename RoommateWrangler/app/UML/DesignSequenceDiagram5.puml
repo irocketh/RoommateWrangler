@@ -1,0 +1,49 @@
+@startuml
+title view bill history
+[-> MainMenuFragment: onBillManagerSelected()
+activate MainMenuFragment
+MainMenuFragment -> BillManagerFragment : onCreate()
+deactivate MainMenuFragment
+activate BillManagerFragment
+[-> BillManagerFragment : onViewBillHistorySelected()
+BillManagerFragment -> BillHistoryFragment : onCreate()
+deactivate BillManagerFragment
+activate BillHistoryFragment
+BillHistoryFragment -> BillManager : create(Context)
+activate BillManager
+BillManager -> DatabaseHelper : create(Context)
+activate DatabaseHelper
+BillManager -> DatabaseHelper : getBillList()
+BillManager <-- DatabaseHelper : billList
+BillHistoryFragment <-- BillManager : billList
+deactivate DatabaseHelper
+deactivate BillManager
+BillHistoryFragment -> RoommateManger : create(Context)
+activate RoommateManger
+RoommateManger -> DatabaseHelper : create(Context)
+activate DatabaseHelper
+RoommateManger -> DatabaseHelper : getRoommateList()
+RoommateManger <-- DatabaseHelper : roommateList
+deactivate DatabaseHelper
+BillHistoryFragment -> StringBuilder: create()
+activate StringBuilder
+
+loop for Bill b in billList
+BillHistoryFragment -> Bill : getRoommateNumber()
+activate Bill
+BillHistoryFragment <-- Bill : roommateNumber
+BillHistoryFragment -> RoommateManger : getRoommateFromId(roommateNumber)
+BillHistoryFragment <-- RoommateManger : roommateName
+BillHistoryFragment -> StringBuilder: append(b.type, b.amount, b.paid, roommateName)
+deactivate Bill
+end
+deactivate RoommateManger
+BillHistoryFragment -> TextView: create()
+activate TextView
+BillHistoryFragment -> StringBuilder: toString()
+BillHistoryFragment <-- StringBuilder: string
+deactivate StringBuilder
+BillHistoryFragment -> TextView: setText(string)
+deactivate TextView
+deactivate BillHistoryFragment
+@enduml

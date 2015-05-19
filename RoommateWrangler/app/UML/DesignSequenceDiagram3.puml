@@ -1,0 +1,21 @@
+@startuml
+title : Add roommate
+[-> MainMenuFragment : onAddRoommateSelected()
+activate MainMenuFragment
+MainMenuFragment -> MainMenuFragment : inflate(add_roommate_view)
+[--> MainMenuFragment : roommateName
+[--> MainMenuFragment : roommateNumber
+[-> MainMenuFragment : onPositiveButtonClick()
+MainMenuFragment -> Roommate : create(roommateName, roommateNumber)
+activate Roommate
+MainMenuFragment -> DatabaseHelper : create(Context)
+activate DatabaseHelper
+MainMenuFragment -> DatabaseHelper : createRoommate(roommate)
+deactivate Roommate
+deactivate DatabaseHelper
+MainMenuFragment -> Toast: create()
+activate Toast
+MainMenuFragment -> Toast: setText("add successful")
+deactivate Toast
+deactivate MainMenuFragment
+@enduml

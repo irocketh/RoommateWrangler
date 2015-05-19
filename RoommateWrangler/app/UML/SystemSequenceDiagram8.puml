@@ -1,0 +1,8 @@
+@startuml
+title reset
+Actor Wrangler
+
+RoommateWrangler -> RoommateWrangler: drops databases
+Wrangler <-- RoommateWrangler: inform drop successful
+
+@enduml
